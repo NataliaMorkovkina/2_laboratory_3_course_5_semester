@@ -2,6 +2,7 @@
 #include <vector>
 #include <math.h>
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
 
@@ -11,6 +12,8 @@ int snail_n;
 
 void divide_and_sort(double* array, int start, int mid, int end)
 {
+
+
     if (start < end)
     {
         int mid = start + (end - start) / 2;
@@ -66,6 +69,9 @@ void divide_and_sort(double* array, int start, int mid, int end)
 
     delete[] lArray;
     delete[] rArray;
+
+
+   
 }
 
 
@@ -77,9 +83,11 @@ struct Snail
     bool confusion = false;
     void is_this_confusion()
     {
+
         divide_and_sort(way, 0, 0, snail_n);
         if (way[0] == way[1])
             this->confusion = true;
+
     }
 };
 
@@ -109,6 +117,7 @@ int main()
         return 0;
     }
 
+    auto start_time = chrono::high_resolution_clock::now();
 
     Snail* snails = new Snail[snail_n];
     double shortest_way = 1000000000;
@@ -145,6 +154,10 @@ int main()
 
     if (k != snail_n)
         cout << " time = " << shortest_way / 2.f * 1000000.f << " sec \n";
+
+    auto end_time = chrono::high_resolution_clock::now();
+    chrono::duration<float> duration = end_time - start_time;
+    cout << "\nlead time - " << duration.count() * 100 << endl;
 
     return 0;
 
